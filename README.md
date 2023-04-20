@@ -1,3 +1,16 @@
+---
+title: Track Anything
+emoji: 🐠
+colorFrom: purple
+colorTo: indigo
+sdk: gradio
+sdk_version: 3.27.0
+app_file: app.py
+pinned: false
+license: mit
+---
+
+Check out the configuration reference at https://huggingface.co/docs/hub/spaces-config-reference
 # Track-Anything
 
 ***Track-Anything*** is a flexible and interactive tool for video object tracking and segmentation. It is developed upon [Segment Anything](https://github.com/facebookresearch/segment-anything), can specify anything to track and segment via user clicks only. During tracking, users can flexibly change the objects they wanna track or correct the region of interest if there are any ambiguities. These characteristics enable ***Track-Anything*** to be suitable for: 
