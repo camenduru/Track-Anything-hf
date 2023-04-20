@@ -356,7 +356,7 @@ with gr.Blocks() as iface:
         show_progress=False
     ) 
 iface.queue(concurrency_count=1)
-iface.launch(debug=True, enable_queue=True, server_port=args.port, server_name="0.0.0.0")
+iface.launch(enable_queue=True)
 
 
     
