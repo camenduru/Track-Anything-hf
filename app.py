@@ -15,6 +15,8 @@ import torchvision
 import torch 
 from tools.painter import mask_painter
 
+os.system("mim install mmcv")
+
 # download checkpoints
 def download_checkpoint(url, folder, filename):
     os.makedirs(folder, exist_ok=True)
@@ -534,7 +536,7 @@ with gr.Blocks() as iface:
         # cache_examples=True,
     ) 
 iface.queue(concurrency_count=1)
-iface.launch(debug=True, enable_queue=True, server_port=args.port, server_name="0.0.0.0")
+iface.launch(debug=True, enable_queue=True)
 
 
     
