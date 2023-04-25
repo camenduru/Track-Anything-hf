@@ -1,5 +1,4 @@
 import gradio as gr
-from demo import automask_image_app, automask_video_app, sahi_autoseg_app
 import argparse
 import cv2
 import time   
