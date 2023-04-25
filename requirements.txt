@@ -12,6 +12,5 @@ pycocotools
 matplotlib
 onnxruntime
 onnx
-metaseg
 pyyaml
 av
