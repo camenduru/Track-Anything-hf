@@ -1,0 +1,105 @@
+\begin{thebibliography}{10}
+
+\bibitem{xmem}
+Ho~Kei Cheng and Alexander~G. Schwing.
+\newblock Xmem: Long-term video object segmentation with an atkinson-shiffrin
+  memory model.
+\newblock In {\em {ECCV} {(28)}}, volume 13688 of {\em Lecture Notes in
+  Computer Science}, pages 640--658. Springer, 2022.
+
+\bibitem{mivos}
+Ho~Kei Cheng, Yu{-}Wing Tai, and Chi{-}Keung Tang.
+\newblock Modular interactive video object segmentation: Interaction-to-mask,
+  propagation and difference-aware fusion.
+\newblock In {\em {CVPR}}, pages 5559--5568. Computer Vision Foundation /
+  {IEEE}, 2021.
+
+\bibitem{vit}
+Alexey Dosovitskiy, Lucas Beyer, Alexander Kolesnikov, Dirk Weissenborn,
+  Xiaohua Zhai, Thomas Unterthiner, Mostafa Dehghani, Matthias Minderer, Georg
+  Heigold, Sylvain Gelly, Jakob Uszkoreit, and Neil Houlsby.
+\newblock An image is worth 16x16 words: Transformers for image recognition at
+  scale.
+\newblock In {\em {ICLR}}. OpenReview.net, 2021.
+
+\bibitem{vos}
+Mingqi Gao, Feng Zheng, James J.~Q. Yu, Caifeng Shan, Guiguang Ding, and
+  Jungong Han.
+\newblock Deep learning for video object segmentation: a review.
+\newblock {\em Artif. Intell. Rev.}, 56(1):457--531, 2023.
+
+\bibitem{sam}
+Alexander Kirillov, Eric Mintun, Nikhila Ravi, Hanzi Mao, Chloe Rolland, Laura
+  Gustafson, Tete Xiao, Spencer Whitehead, Alexander~C Berg, Wan-Yen Lo, et~al.
+\newblock Segment anything.
+\newblock {\em arXiv preprint arXiv:2304.02643}, 2023.
+
+\bibitem{vot10}
+Matej Kristan, Ale{\v{s}} Leonardis, Ji{\v{r}}{\'\i} Matas, Michael Felsberg,
+  Roman Pflugfelder, Joni-Kristian K{\"a}m{\"a}r{\"a}inen, Hyung~Jin Chang,
+  Martin Danelljan, Luka~{\v{C}}ehovin Zajc, Alan Luke{\v{z}}i{\v{c}}, et~al.
+\newblock The tenth visual object tracking vot2022 challenge results.
+\newblock In {\em Computer Vision--ECCV 2022 Workshops: Tel Aviv, Israel,
+  October 23--27, 2022, Proceedings, Part VIII}, pages 431--460. Springer,
+  2023.
+
+\bibitem{vot8}
+Matej Kristan, Ale{\v{s}} Leonardis, Ji{\v{r}}{\'\i} Matas, Michael Felsberg,
+  Roman Pflugfelder, Joni-Kristian K{\"a}m{\"a}r{\"a}inen, Martin Danelljan,
+  Luka~{\v{C}}ehovin Zajc, Alan Luke{\v{z}}i{\v{c}}, Ondrej Drbohlav, et~al.
+\newblock The eighth visual object tracking vot2020 challenge results.
+\newblock In {\em European Conference on Computer Vision}, pages 547--601.
+  Springer, 2020.
+
+\bibitem{vot6}
+Matej Kristan, Ales Leonardis, Jiri Matas, Michael Felsberg, Roman Pflugfelder,
+  Luka ˇCehovin~Zajc, Tomas Vojir, Goutam Bhat, Alan Lukezic, Abdelrahman
+  Eldesokey, et~al.
+\newblock The sixth visual object tracking vot2018 challenge results.
+\newblock In {\em Proceedings of the European Conference on Computer Vision
+  (ECCV) Workshops}, pages 0--0, 2018.
+
+\bibitem{vot9}
+Matej Kristan, Ji{\v{r}}{\'\i} Matas, Ale{\v{s}} Leonardis, Michael Felsberg,
+  Roman Pflugfelder, Joni-Kristian K{\"a}m{\"a}r{\"a}inen, Hyung~Jin Chang,
+  Martin Danelljan, Luka Cehovin, Alan Luke{\v{z}}i{\v{c}}, et~al.
+\newblock The ninth visual object tracking vot2021 challenge results.
+\newblock In {\em Proceedings of the IEEE/CVF International Conference on
+  Computer Vision}, pages 2711--2738, 2021.
+
+\bibitem{vot7}
+Matej Kristan, Jiri Matas, Ales Leonardis, Michael Felsberg, Roman Pflugfelder,
+  Joni-Kristian Kamarainen, Luka ˇCehovin~Zajc, Ondrej Drbohlav, Alan Lukezic,
+  Amanda Berg, et~al.
+\newblock The seventh visual object tracking vot2019 challenge results.
+\newblock In {\em Proceedings of the IEEE/CVF International Conference on
+  Computer Vision Workshops}, pages 0--0, 2019.
+
+\bibitem{e2fgvi}
+Zhen Li, Chengze Lu, Jianhua Qin, Chun{-}Le Guo, and Ming{-}Ming Cheng.
+\newblock Towards an end-to-end framework for flow-guided video inpainting.
+\newblock In {\em {CVPR}}, pages 17541--17550. {IEEE}, 2022.
+
+\bibitem{stm}
+Seoung~Wug Oh, Joon{-}Young Lee, Ning Xu, and Seon~Joo Kim.
+\newblock Video object segmentation using space-time memory networks.
+\newblock In {\em {ICCV}}, pages 9225--9234. {IEEE}, 2019.
+
+\bibitem{davis}
+Jordi Pont{-}Tuset, Federico Perazzi, Sergi Caelles, Pablo Arbelaez, Alexander
+  Sorkine{-}Hornung, and Luc~Van Gool.
+\newblock The 2017 {DAVIS} challenge on video object segmentation.
+\newblock {\em CoRR}, abs/1704.00675, 2017.
+
+\bibitem{siammask}
+Qiang Wang, Li~Zhang, Luca Bertinetto, Weiming Hu, and Philip H.~S. Torr.
+\newblock Fast online object tracking and segmentation: {A} unifying approach.
+\newblock In {\em {CVPR}}, pages 1328--1338. Computer Vision Foundation /
+  {IEEE}, 2019.
+
+\bibitem{aot}
+Zongxin Yang, Yunchao Wei, and Yi~Yang.
+\newblock Associating objects with transformers for video object segmentation.
+\newblock In {\em NeurIPS}, pages 2491--2502, 2021.
+
+\end{thebibliography}
