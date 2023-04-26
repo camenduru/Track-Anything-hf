@@ -13,7 +13,13 @@ import requests
 import json
 import torchvision
 import torch 
+from tools.interact_tools import SamControler
+from tracker.base_tracker import BaseTracker
 from tools.painter import mask_painter
+try: 
+    from mmcv.cnn import ConvModule
+except:
+    os.system("mim install mmcv")
 
 # download checkpoints
 def download_checkpoint(url, folder, filename):
@@ -200,6 +206,7 @@ def show_mask(video_state, interactive_state, mask_dropdown):
 
 # tracking vos
 def vos_tracking_video(video_state, interactive_state, mask_dropdown):
+
     model.xmem.clear_memory()
     if interactive_state["track_end_number"]:
         following_frames = video_state["origin_images"][video_state["select_frame_number"]:interactive_state["track_end_number"]]
@@ -219,6 +226,8 @@ def vos_tracking_video(video_state, interactive_state, mask_dropdown):
         template_mask = video_state["masks"][video_state["select_frame_number"]]
     fps = video_state["fps"]
     masks, logits, painted_images = model.generator(images=following_frames, template_mask=template_mask)
+    # clear GPU memory
+    model.xmem.clear_memory()
 
     if interactive_state["track_end_number"]: 
         video_state["masks"][video_state["select_frame_number"]:interactive_state["track_end_number"]] = masks
@@ -258,6 +267,7 @@ def vos_tracking_video(video_state, interactive_state, mask_dropdown):
 
 # inpaint 
 def inpaint_video(video_state, interactive_state, mask_dropdown):
+
     frames = np.asarray(video_state["origin_images"])
     fps = video_state["fps"]
     inpaint_masks = np.asarray(video_state["masks"])
@@ -304,26 +314,45 @@ def generate_video_from_frames(frames, output_path, fps=30):
     torchvision.io.write_video(output_path, frames, fps=fps, video_codec="libx264")
     return output_path
 
+
+# args, defined in track_anything.py
+args = parse_augment()
+
 # check and download checkpoints if needed
-SAM_checkpoint = "sam_vit_h_4b8939.pth" 
-sam_checkpoint_url = "https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth"
+SAM_checkpoint_dict = {
+    'vit_h': "sam_vit_h_4b8939.pth",
+    'vit_l': "sam_vit_l_0b3195.pth", 
+    "vit_b": "sam_vit_b_01ec64.pth"
+}
+SAM_checkpoint_url_dict = {
+    'vit_h': "https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth",
+    'vit_l': "https://dl.fbaipublicfiles.com/segment_anything/sam_vit_l_0b3195.pth",
+    'vit_b': "https://dl.fbaipublicfiles.com/segment_anything/sam_vit_b_01ec64.pth"
+}
+sam_checkpoint = SAM_checkpoint_dict[args.sam_model_type] 
+sam_checkpoint_url = SAM_checkpoint_url_dict[args.sam_model_type] 
 xmem_checkpoint = "XMem-s012.pth"
 xmem_checkpoint_url = "https://github.com/hkchengrex/XMem/releases/download/v1.0/XMem-s012.pth"
 e2fgvi_checkpoint = "E2FGVI-HQ-CVPR22.pth"
 e2fgvi_checkpoint_id = "10wGdKSUOie0XmCr8SQ2A2FeDe-mfn5w3"
 
+
 folder ="./checkpoints"
-SAM_checkpoint = download_checkpoint(sam_checkpoint_url, folder, SAM_checkpoint)
+SAM_checkpoint = download_checkpoint(sam_checkpoint_url, folder, sam_checkpoint)
 xmem_checkpoint = download_checkpoint(xmem_checkpoint_url, folder, xmem_checkpoint)
 e2fgvi_checkpoint = download_checkpoint_from_google_drive(e2fgvi_checkpoint_id, folder, e2fgvi_checkpoint)
-# args, defined in track_anything.py
-args = parse_augment()
 # args.port = 12315
 # args.device = "cuda:2"
 # args.mask_save = True
 
 # initialize sam, xmem, e2fgvi models
 model = TrackingAnything(SAM_checkpoint, xmem_checkpoint, e2fgvi_checkpoint,args)
+
+
+title = """<p><h1 align="center">Track-Anything</h1></p>
+    """
+description = """<p>Gradio demo for Track Anything, a flexible and interactive tool for video object tracking, segmentation, and inpainting. I To use it, simply upload your video, or click one of the examples to load them. Code: <a href="https://github.com/gaomingqi/Track-Anything">https://github.com/gaomingqi/Track-Anything</a> <a href="https://huggingface.co/spaces/watchtowerss/Track-Anything?duplicate=true"><img style="display: inline; margin-top: 0em; margin-bottom: 0em" src="https://bit.ly/3gLdBN6" alt="Duplicate Space" /></a></p>"""
+
 
 with gr.Blocks() as iface:
     """
@@ -356,7 +385,8 @@ with gr.Blocks() as iface:
         "fps": 30
         }
     )
-
+    gr.Markdown(title)
+    gr.Markdown(description)
     with gr.Row():
 
         # for user video input
@@ -365,7 +395,7 @@ with gr.Blocks() as iface:
                 video_input = gr.Video(autosize=True)
                 with gr.Column():
                     video_info = gr.Textbox()
-                    video_info = gr.Textbox(value="Due to server restrictions, please upload a video that is no longer than 2 minutes. If you want to use the inpaint function, it is best to download and use a machine with more VRAM locally. \
+                    resize_info = gr.Textbox(value="Due to server restrictions, please upload a video that is no longer than 2 minutes. If you want to use the inpaint function, it is best to download and use a machine with more VRAM locally. \
                                             Alternatively, you can use the resize ratio slider to scale down the original image to around 360P resolution for faster processing.")
                     resize_ratio_slider = gr.Slider(minimum=0.02, maximum=1, step=0.02, value=1, label="Resize ratio", visible=True)
           
@@ -534,7 +564,7 @@ with gr.Blocks() as iface:
         # cache_examples=True,
     ) 
 iface.queue(concurrency_count=1)
-iface.launch(debug=True, enable_queue=True)
+iface.launch(debug=True)
 
 
     

@@ -1,4 +1,6 @@
-import PIL 
+import PIL
+from tqdm import tqdm
+
 from tools.interact_tools import SamControler
 from tracker.base_tracker import BaseTracker
 from inpainter.base_inpainter import BaseInpainter
@@ -10,9 +12,12 @@ import argparse
 class TrackingAnything():
     def __init__(self, sam_checkpoint, xmem_checkpoint, e2fgvi_checkpoint, args):
         self.args = args
-        self.samcontroler = SamControler(sam_checkpoint, args.sam_model_type, args.device)
-        self.xmem = BaseTracker(xmem_checkpoint, device=args.device)
-        self.baseinpainter = BaseInpainter(e2fgvi_checkpoint, args.device) 
+        self.sam_checkpoint = sam_checkpoint
+        self.xmem_checkpoint = xmem_checkpoint
+        self.e2fgvi_checkpoint = e2fgvi_checkpoint
+        self.samcontroler = SamControler(self.sam_checkpoint, args.sam_model_type, args.device)
+        self.xmem = BaseTracker(self.xmem_checkpoint, device=args.device)
+        self.baseinpainter = BaseInpainter(self.e2fgvi_checkpoint, args.device) 
     # def inference_step(self, first_flag: bool, interact_flag: bool, image: np.ndarray, 
     #                    same_image_flag: bool, points:np.ndarray, labels: np.ndarray, logits: np.ndarray=None, multimask=True):
     #     if first_flag:
@@ -39,7 +44,7 @@ class TrackingAnything():
         masks = []
         logits = []
         painted_images = []
-        for i in range(len(images)):
+        for i in tqdm(range(len(images)), desc="Tracking image"):
             if i ==0:           
                 mask, logit, painted_image = self.xmem.track(images[i], template_mask)
                 masks.append(mask)
@@ -51,7 +56,6 @@ class TrackingAnything():
                 masks.append(mask)
                 logits.append(logit)
                 painted_images.append(painted_image)
-                print("tracking image {}".format(i))
         return masks, logits, painted_images
     
         
