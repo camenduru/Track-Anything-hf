@@ -161,6 +161,8 @@ def sam_refine(video_state, point_prompt, click_state, interactive_state, evt:gr
         interactive_state["negative_click_times"] += 1
     
     # prompt for sam model
+    model.samcontroler.sam_controler.reset_image()
+    model.samcontroler.sam_controler.set_image(video_state["origin_images"][video_state["select_frame_number"]])
     prompt = get_prompt(click_state=click_state, click_input=coordinate)
 
     mask, logit, painted_image = model.first_frame_click( 
