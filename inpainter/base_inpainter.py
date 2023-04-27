@@ -1,17 +1,28 @@
 import os
 import glob
 from PIL import Image
-
 import torch
 import yaml
 import cv2
 import importlib
 import numpy as np
 from tqdm import tqdm
-
 from inpainter.util.tensor_util import resize_frames, resize_masks
 
+def read_image_from_userfolder(image_path):
+    # if type:
+    image = cv2.cvtColor(cv2.imread(image_path), cv2.COLOR_BGR2RGB)
+    # else:
+        # image = cv2.cvtColor(cv2.imread("/tmp/{}/paintedimages/{}/{:08d}.png".format(username, video_state["video_name"], index+ ".png")), cv2.COLOR_BGR2RGB)
+    return image
 
+def save_image_to_userfolder(video_state, index, image, type:bool):
+    if type:
+        image_path = "/tmp/{}/originimages/{}/{:08d}.png".format(video_state["user_name"], video_state["video_name"], index)
+    else:
+        image_path = "/tmp/{}/paintedimages/{}/{:08d}.png".format(video_state["user_name"], video_state["video_name"], index)
+    cv2.imwrite(image_path, image)
+    return image_path
 class BaseInpainter:
     def __init__(self, E2FGVI_checkpoint, device) -> None:
         """
@@ -46,7 +57,7 @@ class BaseInpainter:
                     ref_index.append(i)
         return ref_index
 
-    def inpaint(self, frames, masks, dilate_radius=15, ratio=1):
+    def inpaint(self, frames_path, masks, dilate_radius=15, ratio=1):
         """
         frames: numpy array, T, H, W, 3
         masks: numpy array, T, H, W
@@ -56,6 +67,11 @@ class BaseInpainter:
         Output:
         inpainted_frames: numpy array, T, H, W, 3
         """
+        frames = []
+        for file in frames_path:
+            frames.append(read_image_from_userfolder(file))
+        frames = np.asarray(frames)
+
         assert frames.shape[:3] == masks.shape, 'different size between frames and masks'
         assert ratio > 0 and ratio <= 1, 'ratio must in (0, 1]'
         masks = masks.copy()
