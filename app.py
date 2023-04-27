@@ -93,8 +93,8 @@ def get_frames_from_video(video_input, video_state):
                 current_memory_usage = psutil.virtual_memory().percent
                 frames.append(cv2.cvtColor(frame, cv2.COLOR_BGR2RGB))
                 if current_memory_usage > 50:
-                    operation_log = [("Memory usage is too high (>70%). Stop the video extraction. Please reduce the video resolution or frame rate.", "Error")]
-                    print("Memory usage is too high (>90%). Please reduce the video resolution or frame rate.")
+                    operation_log = [("Memory usage is too high (>70%). Stop the video extraction. Please reduce the video resolution or frame rate or wait for other users to complete the operation.", "Error")]
+                    print("Memory usage is too high (>50%). Please reduce the video resolution or frame rate.")
                     break
             else:
                 break
