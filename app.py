@@ -495,15 +495,15 @@ with gr.Blocks() as iface:
                                     point_prompt = gr.Radio(
                                         choices=["Positive",  "Negative"],
                                         value="Positive",
-                                        label="Point Prompt",
+                                        label="Point prompt",
                                         interactive=True,
                                         visible=False)
                                     remove_mask_button = gr.Button(value="Remove mask", interactive=True, visible=False) 
-                                    clear_button_click = gr.Button(value="Clear Clicks", interactive=True, visible=False).style(height=160)
+                                    clear_button_click = gr.Button(value="Clear clicks", interactive=True, visible=False).style(height=160)
                                     Add_mask_button = gr.Button(value="Add mask", interactive=True, visible=False)
                             template_frame = gr.Image(type="pil",interactive=True, elem_id="template_frame", visible=False).style(height=360)
-                            image_selection_slider = gr.Slider(minimum=1, maximum=100, step=1, value=1, label="Image Selection", visible=False)
-                            track_pause_number_slider = gr.Slider(minimum=1, maximum=100, step=1, value=1, label="Track end frames", visible=False)
+                            image_selection_slider = gr.Slider(minimum=1, maximum=100, step=1, value=1, label="Track start frame", visible=False)
+                            track_pause_number_slider = gr.Slider(minimum=1, maximum=100, step=1, value=1, label="Track end frame", visible=False)
                     
                         with gr.Column():
                             run_status = gr.HighlightedText(value=[("Run","Error"),("Status","Normal")], visible=True)
